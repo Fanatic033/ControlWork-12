@@ -4,7 +4,7 @@ import {Route, Routes} from 'react-router-dom';
 import Register from './features/User/Register.tsx';
 import Login from './features/User/Login.tsx';
 import {Typography} from '@mui/material';
-import PhotosPage from './features/Photo/PhotoPage.tsx';
+import PhotosPage from './features/Photo/PhotosPage.tsx';
 import ProtectedRoute from './UI/ProtectedRoute/ProtectedRoute.tsx';
 import {useAppSelector} from './app/hooks.ts';
 import {selectUser} from './features/User/UserSlice.ts';

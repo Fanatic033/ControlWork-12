@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Container, TextField} from '@mui/material';
+import {Box, Container, TextField, Typography} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import {useNavigate} from 'react-router-dom';
 import {LoadingButton} from '@mui/lab';
@@ -27,8 +27,16 @@ const PhotoForm = () => {
     image: '',
   });
 
+  const [imageError, setImageError] = useState<string | null>(null);
+
   const submitFormHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!state.image) {
+      setImageError('Image is required');
+      return;
+    }
+
+    setImageError(null);
     void onSubmit(state);
   };
 
@@ -65,6 +73,11 @@ const PhotoForm = () => {
           required
         />
         <FileInput label="Image" onChange={fileInputChangeHandler} name="image"/>
+        {imageError && (
+          <Typography color="error" variant="body2">
+            {imageError}
+          </Typography>
+        )}
         <LoadingButton loading={loading} type="submit" color="primary" variant="contained" sx={{marginTop: 2}}>
           Create
         </LoadingButton>

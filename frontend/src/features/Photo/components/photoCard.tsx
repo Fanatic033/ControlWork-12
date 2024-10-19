@@ -12,9 +12,10 @@ import {API_URL} from '../../../../constants.ts';
 
 interface state {
   photo: Photo;
+  onDialog: (url: string) => void;
 }
 
-const CocktailCard: React.FC<state> = ({photo}) => {
+const PhotoCard: React.FC<state> = ({photo, onDialog}) => {
   const user = useAppSelector(selectUser);
   const deleting = useAppSelector(selectStatusOfDeletingPhoto);
   const dispatch = useAppDispatch();
@@ -43,7 +44,9 @@ const CocktailCard: React.FC<state> = ({photo}) => {
       alignItems: 'center',
     }
     }>
-      <CardMedia component="img" height="200" image={cardImage} alt="photo"/>
+      <CardActionArea onClick={() => onDialog(cardImage)}>
+        <CardMedia component="img" height="200" image={cardImage} alt="photo"/>
+      </CardActionArea>
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
           {photo.title}
@@ -65,4 +68,4 @@ const CocktailCard: React.FC<state> = ({photo}) => {
   );
 };
 
-export default CocktailCard;
+export default PhotoCard;

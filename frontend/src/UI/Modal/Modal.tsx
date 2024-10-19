@@ -10,7 +10,7 @@ export interface SimpleDialogProps {
 const Modal: React.FC<SimpleDialogProps> = ({open, onClose, url}) => {
   return (
     <Dialog onClose={onClose} open={open} maxWidth="md" fullWidth>
-      <img src={url} alt="photo" width="100%"/>
+      <img src={url} alt="photo" width="100%" height="100%" />
       <DialogActions>
         <Button onClick={onClose}>Close</Button>
       </DialogActions>
