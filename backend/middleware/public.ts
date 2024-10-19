@@ -13,14 +13,14 @@ export const publicGet = async (req: RequestUser, res: Response, next: NextFunct
   if (headerValue) {
     const [_bearer, token] = headerValue.split(' ');
 
-    if (!token) {
-      return next()
-    }
     if (token) {
       const user = await User.findOne({token});
       if (user) {
         req.user = user;
       }
+    }
+    if (!token) {
+      return next()
     }
   }
 

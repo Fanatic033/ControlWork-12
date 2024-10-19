@@ -3,6 +3,7 @@ import cors from 'cors';
 import * as mongoose from 'mongoose';
 import config from './config';
 import usersRouter from './routers/users';
+import photoRouter from './routers/photo';
 
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/users', usersRouter)
+app.use('/photos',photoRouter)
 
 
 const run = async () => {

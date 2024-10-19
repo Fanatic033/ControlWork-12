@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import LiquorIcon from '@mui/icons-material/Liquor';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../app/hooks.ts';
 import {selectUser} from '../../features/User/UserSlice.ts';
@@ -23,7 +23,7 @@ const ResponsiveAppBar = () => {
           sx={{display: 'flex', justifyContent: 'space-between'}}
         >
           <div style={{display: 'flex', alignItems: 'center'}}>
-            <LiquorIcon
+            <CollectionsIcon
               sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}
             />
             <Typography
@@ -56,7 +56,7 @@ const ResponsiveAppBar = () => {
               <MenuIcon/>
             </IconButton>
           </Box>
-          <LiquorIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+          <CollectionsIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
           <Typography
             variant="h5"
             noWrap

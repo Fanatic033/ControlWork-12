@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
         <Route
           path="*"
-          element={<Typography variant="h1">Not found</Typography>}
+          element={<Typography variant="h1" sx={{textAlign: 'center'}}>Not found</Typography>}
         />
       </Routes>
     </>
