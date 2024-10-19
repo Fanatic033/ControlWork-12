@@ -46,6 +46,9 @@ const PhotosPage = () => {
               gap: 5,
               marginTop: '100px',
               flexWrap: 'wrap',
+              borderLeft: 1,
+              borderRight: 1,
+              borderColor: 'gray',
             }}
           >
             {loading ? (

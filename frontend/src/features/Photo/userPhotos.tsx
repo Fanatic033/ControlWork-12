@@ -44,13 +44,21 @@ const UserPhotos = () => {
   return (
     <div>
       {authorId && (
-        <Typography textAlign="center" variant="h2">
+        <Typography textAlign="left" variant="h3" sx={{marginTop: '30px',marginLeft: '30px'}}>
           {authorName}'s Gallery
         </Typography>
       )}
       <Modal open={open} onClose={handleClose} url={selectedValue} />
       <Container
-        sx={{ display: 'flex', gap: 5, marginTop: '100px', flexWrap: 'wrap' }}
+        sx={{
+          display: 'flex',
+          gap: 5,
+          marginTop: '100px',
+          flexWrap: 'wrap',
+          borderLeft: 1,
+          borderRight: 1,
+          borderColor: 'gray',
+      }}
       >
         {loading ? (
           <CircularProgress />

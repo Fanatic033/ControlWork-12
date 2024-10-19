@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from '@mui/material';
+import { Avatar, Card, CardActionArea, CardContent, CardHeader, CardMedia } from '@mui/material';
+import { red } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
@@ -46,33 +41,35 @@ const PhotoCard: React.FC<State> = ({ photo, onDialog, isOwner }) => {
   const canDelete = isOwner || user?.role === 'admin';
 
   return (
-    <Card
-      sx={{
-        width: '300px',
-        height: '100%',
-        minHeight: '400px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <Card sx={{ width: 335, marginBottom: 4 }}>
+      <CardHeader
+        avatar={
+          <Avatar
+            sx={{ bgcolor: red[500], cursor: 'pointer' }}
+            aria-label="recipe"
+            onClick={onClickNavigate}
+          >
+            {photo.user?.displayName.charAt(0).toUpperCase()}
+          </Avatar>
+        }
+        title={photo.title}
+        subheader={`Created by: ${photo.user?.displayName}`}
+      />
       <CardActionArea onClick={() => onDialog(cardImage)}>
-        <CardMedia component="img" height="200" image={cardImage} alt="photo" />
+        <CardMedia
+          component="img"
+          height="200"
+          image={cardImage}
+          alt="photo"
+        />
       </CardActionArea>
       <CardContent>
-        <Typography gutterBottom variant="h4" component="div">
-          {photo.title}
-        </Typography>
-        <CardActionArea onClick={onClickNavigate}>
-          <Typography gutterBottom variant="h5" component="div">
-            created by: {photo.user?.displayName}
-          </Typography>
-        </CardActionArea>
         {canDelete && (
           <LoadingButton
             variant="contained"
             onClick={onDelete}
             loading={deleting}
+            sx={{ backgroundColor: 'red' }}
           >
             Delete
           </LoadingButton>

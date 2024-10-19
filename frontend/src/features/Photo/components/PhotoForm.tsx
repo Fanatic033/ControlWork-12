@@ -55,6 +55,7 @@ const PhotoForm = () => {
 
   return (
     <Container maxWidth="sm" sx={{ height: '600px', marginTop: '100px' }}>
+      <Typography variant={'h4'} sx={{marginBottom: '30px'}}>Create new Photo for Gallery</Typography>
       <Box
         component="form"
         onSubmit={submitFormHandler}
