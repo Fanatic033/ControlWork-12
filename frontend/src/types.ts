@@ -36,3 +36,15 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+
+export interface Photo {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+  },
+  title: string;
+  image: string ;
+}
+
+export type PhotoMutation = Omit<Photo, 'user' | '_id'>
