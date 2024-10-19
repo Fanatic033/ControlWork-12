@@ -1,8 +1,12 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {RootState} from '../../app/store';
-import {Photo} from '../../types';
-import {createPhoto, deletePhoto, getPhotos, getPhotosByAuthor} from './photoThunks.ts';
-
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import { Photo } from '../../types';
+import {
+  createPhoto,
+  deletePhoto,
+  getPhotos,
+  getPhotosByAuthor,
+} from './photoThunks.ts';
 
 interface Initial {
   photos: Photo[];
@@ -60,7 +64,9 @@ export const PhotoSlice = createSlice({
     });
     builder.addCase(deletePhoto.fulfilled, (state, action) => {
       state.deleting = false;
-      state.photos = state.photos.filter(photo => photo._id !== action.meta.arg)
+      state.photos = state.photos.filter(
+        (photo) => photo._id !== action.meta.arg,
+      );
     });
     builder.addCase(deletePhoto.rejected, (state) => {
       state.deleting = false;
@@ -72,4 +78,5 @@ export const PhotoReducer = PhotoSlice.reducer;
 export const selectStateOfPhoto = (state: RootState) => state.photos.photos;
 export const selectStatusOfPhoto = (state: RootState) => state.photos.loading;
 export const selectStatusOfPosting = (state: RootState) => state.photos.posting;
-export const selectStatusOfDeletingPhoto = (state: RootState) => state.photos.deleting;
+export const selectStatusOfDeletingPhoto = (state: RootState) =>
+  state.photos.deleting;

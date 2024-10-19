@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {Avatar, Box, Link, TextField, Typography} from '@mui/material';
+import React, { useState } from 'react';
+import { Avatar, Box, Link, TextField, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {Link as NavLink, useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../app/hooks.ts';
-import {RegisterMutation} from '../../types.ts';
-import {LoadingButton} from '@mui/lab';
-import {GoogleLogin} from '@react-oauth/google';
-import {selectRegisterError, selectRegisterLoading} from './UserSlice.ts';
-import {googleLogin, register} from './UserThunks.ts';
+import { Link as NavLink, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
+import { RegisterMutation } from '../../types.ts';
+import { LoadingButton } from '@mui/lab';
+import { GoogleLogin } from '@react-oauth/google';
+import { selectRegisterError, selectRegisterLoading } from './UserSlice.ts';
+import { googleLogin, register } from './UserThunks.ts';
 import FileInput from '../../UI/FileInput/FileInput.tsx';
 
 const Register = () => {
@@ -28,7 +28,7 @@ const Register = () => {
   };
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -48,7 +48,7 @@ const Register = () => {
   const fileInputChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const {name, files} = event.target;
+    const { name, files } = event.target;
     const value = files && files[0] ? files[0] : null;
     setState((prevState) => ({
       ...prevState,
@@ -58,7 +58,7 @@ const Register = () => {
 
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
-    navigate('/')
+    navigate('/');
   };
 
   return (
@@ -75,13 +75,13 @@ const Register = () => {
         margin: '50px auto',
       }}
     >
-      <Avatar sx={{m: 7, bgcolor: 'success.main'}}>
-        <LockOutlinedIcon/>
+      <Avatar sx={{ m: 7, bgcolor: 'success.main' }}>
+        <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         Зарегестрироваться
       </Typography>
-      <Box sx={{pt: 2}}>
+      <Box sx={{ pt: 2 }}>
         <GoogleLogin
           onSuccess={(credentialResponse) => {
             if (credentialResponse.credential) {
@@ -98,9 +98,9 @@ const Register = () => {
         component="form"
         noValidate
         onSubmit={submitFormHandler}
-        sx={{mt: 3}}
+        sx={{ mt: 3 }}
       >
-        <Box sx={{width: '100%', maxWidth: 400, mt: 2}}>
+        <Box sx={{ width: '100%', maxWidth: 400, mt: 2 }}>
           <TextField
             required
             label="Email"
@@ -146,7 +146,7 @@ const Register = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{mt: 3, mb: 2}}
+          sx={{ mt: 3, mb: 2 }}
           loading={btnLoading}
         >
           Регистрация
@@ -155,9 +155,9 @@ const Register = () => {
           component={NavLink}
           to={'/login'}
           variant="body2"
-          sx={{textDecoration: 'none'}}
+          sx={{ textDecoration: 'none' }}
         >
-          <span style={{color: 'gray'}}>У вас уже есть аккаунт ?</span> Войти
+          <span style={{ color: 'gray' }}>У вас уже есть аккаунт ?</span> Войти
           в аккаунт
         </Link>
       </Box>

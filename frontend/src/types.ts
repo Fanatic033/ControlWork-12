@@ -33,7 +33,6 @@ export interface ValidationError {
   _message: string;
 }
 
-
 export interface GlobalError {
   error: string;
 }
@@ -43,11 +42,9 @@ export interface Photo {
   user: {
     _id: string;
     displayName: string;
-  },
+  };
   title: string;
-  image: string ;
+  image: string;
 }
-export interface OnePhoto {
-  result: Photo;
-}
-export type PhotoMutation = Omit<Photo, 'user' | '_id'>
+
+export type PhotoMutation = Omit<Photo, 'user' | '_id'>;

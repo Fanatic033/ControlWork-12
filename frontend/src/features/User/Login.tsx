@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {Alert, Avatar, Box, Link, TextField, Typography} from '@mui/material';
+import React, { useState } from 'react';
+import { Alert, Avatar, Box, Link, TextField, Typography } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../app/hooks.ts';
-import {GoogleLogin} from '@react-oauth/google';
-import {LoadingButton} from '@mui/lab';
-import {selectLoginError, selectLoginLoading} from './UserSlice.ts';
-import {googleLogin, login} from './UserThunks.ts';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
+import { GoogleLogin } from '@react-oauth/google';
+import { LoadingButton } from '@mui/lab';
+import { selectLoginError, selectLoginLoading } from './UserSlice.ts';
+import { googleLogin, login } from './UserThunks.ts';
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const Login = () => {
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -40,7 +40,7 @@ const Login = () => {
 
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
-    navigate('/')
+    navigate('/');
   };
 
   return (
@@ -57,18 +57,18 @@ const Login = () => {
         margin: '50px auto',
       }}
     >
-      <Avatar sx={{m: 7, bgcolor: 'success.main'}}>
-        <LockOpenIcon/>
+      <Avatar sx={{ m: 7, bgcolor: 'success.main' }}>
+        <LockOpenIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         Войти в Spotify
       </Typography>
       {error && (
-        <Alert severity="error" sx={{mt: 3}}>
+        <Alert severity="error" sx={{ mt: 3 }}>
           {error.error}
         </Alert>
       )}
-      <Box sx={{pt: 2}}>
+      <Box sx={{ pt: 2 }}>
         <GoogleLogin
           onSuccess={(credentialResponse) => {
             if (credentialResponse.credential) {
@@ -91,7 +91,7 @@ const Login = () => {
           justifyContent: 'center',
         }}
       >
-        <Box sx={{width: '100%', maxWidth: 400, mt: 2}}>
+        <Box sx={{ width: '100%', maxWidth: 400, mt: 2 }}>
           <TextField
             required
             label="Email"
@@ -118,7 +118,7 @@ const Login = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{mt: 3, mb: 2}}
+          sx={{ mt: 3, mb: 2 }}
           loading={btnLoading ? false : undefined}
         >
           Войти
@@ -127,13 +127,13 @@ const Login = () => {
           component={RouterLink}
           to={'/register'}
           variant="body2"
-          sx={{textDecoration: 'none'}}
+          sx={{ textDecoration: 'none' }}
         >
-          <span style={{color: 'gray'}}>Нет аккаунта?</span> Регистрация
+          <span style={{ color: 'gray' }}>Нет аккаунта?</span> Регистрация
         </Link>
       </Box>
     </Box>
   );
 };
 
-export default Login
+export default Login;

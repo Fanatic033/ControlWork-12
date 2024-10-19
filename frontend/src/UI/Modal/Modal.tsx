@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Dialog, DialogActions} from '@mui/material';
+import { Button, Dialog, DialogActions } from '@mui/material';
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -7,7 +7,7 @@ export interface SimpleDialogProps {
   url: string;
 }
 
-const Modal: React.FC<SimpleDialogProps> = ({open, onClose, url}) => {
+const Modal: React.FC<SimpleDialogProps> = ({ open, onClose, url }) => {
   return (
     <Dialog onClose={onClose} open={open} maxWidth="md" fullWidth>
       <img src={url} alt="photo" width="100%" height="100%" />

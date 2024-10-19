@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {Button, TextField} from '@mui/material';
+import React, { useRef, useState } from 'react';
+import { Button, TextField } from '@mui/material';
 
 interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -7,7 +7,7 @@ interface Props {
   label: string;
 }
 
-const FileInput: React.FC<Props> = ({onChange, name, label}) => {
+const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
   const [filename, setFilename] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -26,13 +26,12 @@ const FileInput: React.FC<Props> = ({onChange, name, label}) => {
     onChange(e);
   };
 
-
   return (
-    <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
       <input
         type={'file'}
         name={name}
-        style={{display: 'none'}}
+        style={{ display: 'none' }}
         ref={inputRef}
         onChange={onFileChange}
       />

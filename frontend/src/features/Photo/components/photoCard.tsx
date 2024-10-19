@@ -1,23 +1,29 @@
 import React from 'react';
-import {Card, CardActionArea, CardContent, CardMedia, Typography} from '@mui/material';
-import {useNavigate} from 'react-router-dom';
-import {LoadingButton} from '@mui/lab';
-import {useAppDispatch, useAppSelector} from '../../../app/hooks';
-import {Photo} from '../../../types';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { Photo } from '../../../types';
 import imageNotFound from '@/assets/image-not-found.png';
-import {selectStatusOfDeletingPhoto} from '../photoSlice.ts';
-import {deletePhoto} from '../photoThunks.ts';
-import {API_URL} from '../../../../constants.ts';
-import {selectUser} from '../../User/UserSlice.ts';
+import { selectStatusOfDeletingPhoto } from '../photoSlice.ts';
+import { deletePhoto } from '../photoThunks.ts';
+import { API_URL } from '../../../../constants.ts';
+import { selectUser } from '../../User/UserSlice.ts';
 
 interface State {
   photo: Photo;
   onDialog: (url: string) => void;
-  isOwner: boolean;
+  isOwner?: boolean;
 }
 
-const PhotoCard: React.FC<State> = ({photo, onDialog, isOwner}) => {
-  const user = useAppSelector(selectUser)
+const PhotoCard: React.FC<State> = ({ photo, onDialog, isOwner }) => {
+  const user = useAppSelector(selectUser);
   const deleting = useAppSelector(selectStatusOfDeletingPhoto);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -28,7 +34,9 @@ const PhotoCard: React.FC<State> = ({photo, onDialog, isOwner}) => {
   }
 
   const onDelete = async () => {
-    await dispatch(deletePhoto(photo._id));
+    if (window.confirm('Are you sure you want to delete this photo?')) {
+      await dispatch(deletePhoto(photo._id));
+    }
   };
 
   const onClickNavigate = () => {
@@ -49,7 +57,7 @@ const PhotoCard: React.FC<State> = ({photo, onDialog, isOwner}) => {
       }}
     >
       <CardActionArea onClick={() => onDialog(cardImage)}>
-        <CardMedia component="img" height="200" image={cardImage} alt="photo"/>
+        <CardMedia component="img" height="200" image={cardImage} alt="photo" />
       </CardActionArea>
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
@@ -61,7 +69,11 @@ const PhotoCard: React.FC<State> = ({photo, onDialog, isOwner}) => {
           </Typography>
         </CardActionArea>
         {canDelete && (
-          <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
+          <LoadingButton
+            variant="contained"
+            onClick={onDelete}
+            loading={deleting}
+          >
             Delete
           </LoadingButton>
         )}

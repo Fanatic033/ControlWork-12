@@ -1,14 +1,20 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {isAxiosError} from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isAxiosError } from 'axios';
 import axiosApi from '../../../axiosApi.ts';
-import {GlobalError, LoginMutation, RegisterMutation, User, ValidationError} from '../../types.ts';
-import {unsetUser} from './UserSlice.ts';
+import {
+  GlobalError,
+  LoginMutation,
+  RegisterMutation,
+  User,
+  ValidationError,
+} from '../../types.ts';
+import { unsetUser } from './UserSlice.ts';
 
 export const register = createAsyncThunk<
   User,
   RegisterMutation,
   { rejectValue: ValidationError }
->('users/register', async (MutationRegister, {rejectWithValue}) => {
+>('users/register', async (MutationRegister, { rejectWithValue }) => {
   try {
     const formData = new FormData();
 
@@ -19,7 +25,7 @@ export const register = createAsyncThunk<
         formData.append(key, value);
       }
     });
-    const {data: user} = await axiosApi.post<User>('/users', formData);
+    const { data: user } = await axiosApi.post<User>('/users', formData);
     return user;
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {
@@ -33,9 +39,9 @@ export const login = createAsyncThunk<
   User,
   LoginMutation,
   { rejectValue: GlobalError }
->('users//login', async (loginMutation, {rejectWithValue}) => {
+>('users//login', async (loginMutation, { rejectWithValue }) => {
   try {
-    const {data: user} = await axiosApi.post<User>(
+    const { data: user } = await axiosApi.post<User>(
       '/users/sessions',
       loginMutation,
     );
@@ -48,26 +54,26 @@ export const login = createAsyncThunk<
   }
 });
 
-
 export const logout = createAsyncThunk(
   'users/logout',
-  async (_, {dispatch}) => {
+  async (_, { dispatch }) => {
     await axiosApi.delete('users/sessions');
     dispatch(unsetUser());
   },
 );
 
-export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalError }>(
-  'users/googleLogin',
-  async (credential, {rejectWithValue}) => {
-    try {
-      const response = await axiosApi.post('/users/google', {credential});
-      return response.data.user;
-    } catch (e) {
-      if (isAxiosError(e) && e.response && e.response.status === 400) {
-        return rejectWithValue(e.response.data as GlobalError);
-      }
-      throw e;
+export const googleLogin = createAsyncThunk<
+  User,
+  string,
+  { rejectValue: GlobalError }
+>('users/googleLogin', async (credential, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.post('/users/google', { credential });
+    return response.data.user;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data as GlobalError);
     }
-  },
-);
+    throw e;
+  }
+});
