@@ -9,6 +9,7 @@ import ProtectedRoute from './UI/ProtectedRoute/ProtectedRoute.tsx';
 import {useAppSelector} from './app/hooks.ts';
 import {selectUser} from './features/User/UserSlice.ts';
 import PhotoForm from './features/Photo/components/PhotoForm.tsx';
+import UserPhotos from './features/Photo/userPhotos.tsx';
 
 const App = () => {
   const user = useAppSelector(selectUser)
@@ -19,7 +20,10 @@ const App = () => {
       </header>
       <Routes>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/" element={<PhotosPage/>}/>
+        <Route path="/photos/:authorId" element={<UserPhotos/>}/>
+
         <Route
           path="/photos/new"
           element={
@@ -28,7 +32,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<Login/>}/>
         <Route
           path="*"
           element={<Typography variant="h1" sx={{textAlign: 'center'}}>Not found</Typography>}

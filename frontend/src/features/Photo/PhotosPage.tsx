@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {CircularProgress, Container, Typography} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectStateOfPhoto, selectStatusOfPhoto} from './photoSlice.ts';
-import {getPhotos, getPhotosByAuthor} from './photoThunks.ts';
+import {getPhotos} from './photoThunks.ts';
 import {useParams} from 'react-router-dom';
 import PhotoCard from './components/photoCard.tsx';
 import Modal from '../../UI/Modal/Modal.tsx';
@@ -25,11 +25,7 @@ const PhotosPage = () => {
   }
 
   const callBack = useCallback(async () => {
-    if (id?.length) {
-      await dispatch(getPhotosByAuthor(id));
-    } else {
-      await dispatch(getPhotos());
-    }
+    await dispatch(getPhotos());
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -41,10 +37,10 @@ const PhotosPage = () => {
       <Modal open={open} onClose={handleClose} url={selectedValue}/>
       {photo.length ? <>
           <Typography textAlign="center" variant="h2">
-            {id ? photo[0].user.displayName + '\'s Gallery' : 'Gallery'}
+            Gallery
           </Typography>
-          <Container sx={{display: 'flex', gap: 5, marginTop: '100px',flexWrap:'wrap'}}>
-            {loading ? <CircularProgress/> : photo.map((el) => <PhotoCard onDialog={handleClickOpen} key={Math.random()}
+          <Container sx={{display: 'flex', gap: 5, marginTop: '100px', flexWrap: 'wrap'}}>
+            {loading ? <CircularProgress/> : photo.map((el) => <PhotoCard onDialog={handleClickOpen} key={el._id}
                                                                           photo={el}/>)}
           </Container>
         </> :

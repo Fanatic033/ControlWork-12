@@ -7,7 +7,7 @@ import {Photo} from '../../../types';
 import imageNotFound from '@/assets/image-not-found.png'
 import {selectUser} from '../../User/UserSlice.ts';
 import {selectStatusOfDeletingPhoto} from '../photoSlice.ts';
-import {deletePhoto, getPhotos} from '../photoThunks.ts';
+import {deletePhoto} from '../photoThunks.ts';
 import {API_URL} from '../../../../constants.ts';
 
 interface state {
@@ -27,7 +27,6 @@ const PhotoCard: React.FC<state> = ({photo, onDialog}) => {
 
   const onDelete = async () => {
     await dispatch(deletePhoto(photo._id));
-    await dispatch(getPhotos());
   };
 
   const onClickNavigate = () => {

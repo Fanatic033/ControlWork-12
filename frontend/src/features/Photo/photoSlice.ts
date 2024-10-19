@@ -58,8 +58,9 @@ export const PhotoSlice = createSlice({
     builder.addCase(deletePhoto.pending, (state) => {
       state.deleting = true;
     });
-    builder.addCase(deletePhoto.fulfilled, (state) => {
+    builder.addCase(deletePhoto.fulfilled, (state, action) => {
       state.deleting = false;
+      state.photos = state.photos.filter(photo => photo._id !== action.meta.arg)
     });
     builder.addCase(deletePhoto.rejected, (state) => {
       state.deleting = false;

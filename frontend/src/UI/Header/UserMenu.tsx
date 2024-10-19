@@ -6,7 +6,7 @@ import {green} from '@mui/material/colors';
 import {useAppDispatch} from '../../app/hooks.ts';
 import Image from '@/assets/image-not-found.png';
 import Typography from '@mui/material/Typography';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {API_URL} from '../../../constants.ts';
 import {logout} from '../../features/User/UserThunks.ts';
 
@@ -59,12 +59,8 @@ const UserMenu: React.FC<Props> = ({user}) => {
           onClose={handleClose}
         >
           <MenuItem>Profile</MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate('/photos/' + user._id);
-            }}
-          >
-            My gallery
+          <MenuItem>
+            <Link to={`/photos?user=${user._id}`} style={{textDecoration:"none",color:'black'}}>My Gallery</Link>
           </MenuItem>
           <MenuItem
             onClick={() => {
