@@ -7,6 +7,9 @@ import {GOOGLE_CLIENT_ID} from '../constants.ts';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './app/store.ts';
 import {Provider} from 'react-redux';
+import {addInterceptors} from '../axiosApi.ts';
+
+addInterceptors(store);
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>

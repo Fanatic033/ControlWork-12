@@ -70,4 +70,5 @@ export const PhotoSlice = createSlice({
 export const PhotoReducer = PhotoSlice.reducer;
 export const selectStateOfPhoto = (state: RootState) => state.photos.photos;
 export const selectStatusOfPhoto = (state: RootState) => state.photos.loading;
+export const selectStatusOfPosting = (state: RootState) => state.photos.posting;
 export const selectStatusOfDeletingPhoto = (state: RootState) => state.photos.deleting;

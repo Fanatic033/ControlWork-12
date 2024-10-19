@@ -59,6 +59,20 @@ const UserMenu: React.FC<Props> = ({user}) => {
           onClose={handleClose}
         >
           <MenuItem>Profile</MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate('/photos/' + user._id);
+            }}
+          >
+            My gallery
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate('/photos/new');
+            }}
+          >
+            Add Photo
+          </MenuItem>
           <MenuItem>My Account {user.displayName}</MenuItem>
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>

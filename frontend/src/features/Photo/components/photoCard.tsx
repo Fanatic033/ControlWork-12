@@ -30,7 +30,7 @@ const CocktailCard: React.FC<state> = ({photo}) => {
   };
 
   const onClickNavigate = () => {
-    navigate('/photos/' + photo._id);
+    navigate('/photos/' + photo.user._id);
   };
 
   return (
