@@ -4,22 +4,17 @@ import crypto from 'crypto';
 import User from './Models/User';
 import Photo from './Models/Photo';
 
-const dropCollection = async (db: mongoose.Connection, collectionName: string) => {
-  try {
-    await db.dropCollection(collectionName);
-  } catch (e) {
-    console.log(`Collection ${collectionName} was missing, skipping drop...`);
-  }
-};
 
 const run = async () => {
   await mongoose.connect(config.database);
   const db = mongoose.connection;
 
-  const collections = ['users', 'posts'];
 
-  for (const collectionName of collections) {
-    await dropCollection(db, collectionName);
+  try {
+    await db.dropCollection('users')
+    await db.dropCollection('photos')
+  } catch (e) {
+    console.log('skipping drop..')
   }
 
   const [user1, user2, admin1, admin2] = await User.create(

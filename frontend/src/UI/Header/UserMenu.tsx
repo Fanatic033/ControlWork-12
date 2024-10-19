@@ -60,7 +60,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
         >
           <MenuItem>Profile</MenuItem>
           <MenuItem>
-            <Link to={`/photos?user=${user._id}`} style={{textDecoration:"none",color:'black'}}>My Gallery</Link>
+            <Link to={`/photos/${user._id}`} style={{textDecoration: 'none', color: 'black'}}>My Gallery</Link>
           </MenuItem>
           <MenuItem
             onClick={() => {

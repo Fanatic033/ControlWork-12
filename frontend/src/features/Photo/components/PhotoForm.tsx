@@ -6,12 +6,12 @@ import {LoadingButton} from '@mui/lab';
 import {PhotoMutation} from '../../../types.ts';
 import {createPhoto} from '../photoThunks.ts';
 import FileInput from '../../../UI/FileInput/FileInput.tsx';
-import {selectStatusOfDeletingPhoto} from '../photoSlice.ts';
+import {selectStatusOfPosting} from '../photoSlice.ts';
 
 const PhotoForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loading = useAppSelector(selectStatusOfDeletingPhoto)
+  const loading = useAppSelector(selectStatusOfPosting)
 
   const onSubmit = async (photoMutation: PhotoMutation) => {
     try {

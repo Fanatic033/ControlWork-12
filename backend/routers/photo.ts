@@ -48,16 +48,15 @@ photoRouter.get('/:id', async (req, res) => {
   }
 });
 
-photoRouter.delete('/:id', auth, async (req, res, next) => {
+photoRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
   try {
-    const post_id = req.params.id;
-    const post = await Photo.findOne({_id: post_id});
+    const photo_id = req.params.id;
+    const photo = await Photo.findOne({_id: photo_id});
 
-    if (!post) {
+    if (!photo) {
       return res.status(404).send({error: 'Not found!'});
     }
-
-    await Photo.deleteOne({_id: post_id});
+    await Photo.deleteOne({_id: photo_id});
     return res.send('deleted');
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

@@ -6,6 +6,7 @@ import {selectStateOfPhoto, selectStatusOfPhoto} from './photoSlice';
 import PhotoCard from './components/photoCard.tsx';
 import {CircularProgress, Container} from '@mui/material';
 import Modal from '../../UI/Modal/Modal.tsx';
+import {selectUser} from '../User/UserSlice.ts';
 
 const UserPhotos = () => {
   const {authorId} = useParams();
@@ -14,6 +15,7 @@ const UserPhotos = () => {
   const loading = useAppSelector(selectStatusOfPhoto);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
+  const user = useAppSelector(selectUser)
 
   const handleClickOpen = (url: string) => {
     setSelectedValue(url);
@@ -34,8 +36,12 @@ const UserPhotos = () => {
     <div>
       <Modal open={open} onClose={handleClose} url={selectedValue}/>
       <Container sx={{display: 'flex', gap: 5, marginTop: '100px', flexWrap: 'wrap'}}>
-        {loading ? <CircularProgress/> : photos.map((el) => <PhotoCard onDialog={handleClickOpen} key={Math.random()}
-                                                                       photo={el}/>)}
+        {loading ? <CircularProgress/> : photos.map((el) => <PhotoCard
+          onDialog={handleClickOpen}
+          key={Math.random()}
+          photo={el}
+          isOwner={el.user?._id === user?._id}
+        />)}
       </Container>
     </div>
   );
