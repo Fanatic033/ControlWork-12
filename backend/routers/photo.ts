@@ -1,8 +1,9 @@
 import express from 'express';
 import {auth, RequestWithUser} from '../middleware/auth';
-import {imagesUpload} from '../multer';
+import {imagesUpload} from '../multer'
 import Photo from '../Models/Photo';
 import {publicGet} from '../middleware/public';
+import mongoose from 'mongoose';
 
 
 const photoRouter = express.Router();
@@ -34,6 +35,37 @@ photoRouter.get('/', publicGet, async (req: RequestWithUser, res, next) => {
     next(e)
   }
 })
+
+photoRouter.get('/:id', async (req, res) => {
+  try {
+    const result = await Photo.findById(req.params.id).populate('user', 'displayName');
+
+    if (!result) return res.status(404).send({error: 'Photo not found!'});
+
+    return res.send(result);
+  } catch {
+    return res.sendStatus(500);
+  }
+});
+
+photoRouter.delete('/:id', auth, async (req, res, next) => {
+  try {
+    const post_id = req.params.id;
+    const post = await Photo.findOne({_id: post_id});
+
+    if (!post) {
+      return res.status(404).send({error: 'Not found!'});
+    }
+
+    await Photo.deleteOne({_id: post_id});
+    return res.send('deleted');
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      return res.status(400).send(error);
+    }
+    return next(error);
+  }
+});
 
 
 export default photoRouter
