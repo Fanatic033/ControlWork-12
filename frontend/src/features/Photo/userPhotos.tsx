@@ -17,6 +17,8 @@ const UserPhotos = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const user = useAppSelector(selectUser);
 
+  const authorName = photos.length > 0 ? photos[0].user.displayName : 'Unknown Author';
+
   const handleClickOpen = (url: string) => {
     setSelectedValue(url);
     setOpen(true);
@@ -32,6 +34,7 @@ const UserPhotos = () => {
     }
   }, [dispatch, authorId]);
 
+
   if (!photos.length)
     return (
       <Typography textAlign="center" variant="h2">
@@ -40,6 +43,11 @@ const UserPhotos = () => {
     );
   return (
     <div>
+      {authorId && (
+        <Typography textAlign="center" variant="h2">
+          {authorName}'s Gallery
+        </Typography>
+      )}
       <Modal open={open} onClose={handleClose} url={selectedValue} />
       <Container
         sx={{ display: 'flex', gap: 5, marginTop: '100px', flexWrap: 'wrap' }}
@@ -50,7 +58,7 @@ const UserPhotos = () => {
           photos.map((el) => (
             <PhotoCard
               onDialog={handleClickOpen}
-              key={Math.random()}
+              key={el._id}
               photo={el}
               isOwner={el.user?._id === user?._id}
             />
